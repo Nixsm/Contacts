@@ -318,6 +318,11 @@ public final class Query {
             if (companyTitle != null) {
                 contact.addCompanyTitle(companyTitle);
             }
+        } else if (mimeType.equals(ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE)) {
+            String website = helper.getWebsite();
+            if (website != null) {
+                contact.addWebsite(website);
+            }
         }
     }
 

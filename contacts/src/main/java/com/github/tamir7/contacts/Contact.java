@@ -40,6 +40,7 @@ public final class Contact {
     private final Set<Address> addresses = new HashSet<>();
     private String companyName;
     private String companyTitle;
+    private final Set<String> websites = new HashSet<>();
 
     interface AbstractField {
         String getMimeType();
@@ -94,7 +95,9 @@ public final class Contact {
         CompanyName(ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
                 ContactsContract.CommonDataKinds.Organization.COMPANY),
         CompanyTitle(ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
-                ContactsContract.CommonDataKinds.Organization.TITLE);
+                ContactsContract.CommonDataKinds.Organization.TITLE),
+        Website(ContactsContract.CommonDataKinds.Website.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Website.URL);
 
         private final String column;
         private final String mimeType;
@@ -195,6 +198,11 @@ public final class Contact {
         return this;
     }
 
+    Contact addWebsite(String website) {
+        websites.add(website);
+        return this;
+    }
+
     /**
      * Gets a the phone contact id.
      *
@@ -288,6 +296,7 @@ public final class Contact {
     }
 
     /**
+     * <<<<<<< HEAD
      * Gets the list of addresses
      *
      * @return A list of addresses
@@ -312,6 +321,15 @@ public final class Contact {
      */
     public String getCompanyTitle() {
         return companyTitle;
+    }
+
+    /**
+     * Gets the list of all websites the contact has
+     *
+     * @return A list of websites
+     */
+    public List<String> getWebsites() {
+        return Arrays.asList(websites.toArray(new String[websites.size()]));
     }
 
     private Event getEvent(Event.Type type) {
