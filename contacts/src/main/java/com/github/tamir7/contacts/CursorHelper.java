@@ -69,6 +69,13 @@ class CursorHelper {
         return new Address(address, street, city, region, postcode, country, label);
     }
 
+    String getCompanyName() {
+        return getString(c, ContactsContract.CommonDataKinds.Organization.COMPANY);
+    }
+
+    String getCompanyTitle() {
+        return getString(c, ContactsContract.CommonDataKinds.Organization.TITLE);
+    }
 
     PhoneNumber getPhoneNumber() {
         String number = getString(c, ContactsContract.CommonDataKinds.Phone.NUMBER);
@@ -119,7 +126,7 @@ class CursorHelper {
         }
 
         Integer typeValue = getInt(c, ContactsContract.CommonDataKinds.Event.TYPE);
-        Event.Type type = typeValue ==  null ? Event.Type.UNKNOWN : Event.Type.fromValue(typeValue);
+        Event.Type type = typeValue == null ? Event.Type.UNKNOWN : Event.Type.fromValue(typeValue);
         if (!type.equals(Event.Type.CUSTOM)) {
             return new Event(startDate, type);
         }
@@ -137,7 +144,7 @@ class CursorHelper {
         return index == -1 ? null : c.getInt(index);
     }
 
-    private  Long getLong(Cursor c, String column) {
+    private Long getLong(Cursor c, String column) {
         int index = c.getColumnIndex(column);
         return index == -1 ? null : c.getLong(index);
     }

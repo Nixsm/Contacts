@@ -32,11 +32,14 @@ public final class Contact {
     private String displayName;
     private String givenName;
     private String familyName;
+
     private final Set<PhoneNumber> phoneNumbers = new HashSet<>();
     private String photoUri;
     private final Set<Email> emails = new HashSet<>();
     private final Set<Event> events = new HashSet<>();
     private final Set<Address> addresses = new HashSet<>();
+    private String companyName;
+    private String companyTitle;
 
     interface AbstractField {
         String getMimeType();
@@ -87,7 +90,11 @@ public final class Contact {
         AddressCountry(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
                 ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY),
         AddressLabel(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
-                ContactsContract.CommonDataKinds.StructuredPostal.LABEL);
+                ContactsContract.CommonDataKinds.StructuredPostal.LABEL),
+        CompanyName(ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Organization.COMPANY),
+        CompanyTitle(ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
+                ContactsContract.CommonDataKinds.Organization.TITLE);
 
         private final String column;
         private final String mimeType;
@@ -131,7 +138,8 @@ public final class Contact {
         }
     }
 
-    Contact() {}
+    Contact() {
+    }
 
     void setId(Long id) {
         this.id = id;
@@ -177,11 +185,22 @@ public final class Contact {
         return this;
     }
 
+    Contact addCompanyName(String companyName) {
+        this.companyName = companyName;
+        return this;
+    }
+
+    Contact addCompanyTitle(String companyTitle) {
+        this.companyTitle = companyTitle;
+        return this;
+    }
+
     /**
      * Gets a the phone contact id.
      *
      * @return contact id.
      */
+
     public Long getId() {
         return id;
     }
@@ -277,9 +296,26 @@ public final class Contact {
         return Arrays.asList(addresses.toArray(new Address[addresses.size()]));
     }
 
+    /**
+     * Gets the name of the company the contact works on
+     *
+     * @return the company name
+     */
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    /**
+     * Gets the job title of the contact
+     *
+     * @return the job title
+     */
+    public String getCompanyTitle() {
+        return companyTitle;
+    }
 
     private Event getEvent(Event.Type type) {
-        for (Event event: events) {
+        for (Event event : events) {
             if (type.equals(event.getType())) {
                 return event;
             }
