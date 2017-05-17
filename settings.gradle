@@ -1,1 +1,1 @@
-include ':sample', ':contacts'
+include ':contacts'
