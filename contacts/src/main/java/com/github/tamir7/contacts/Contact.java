@@ -296,7 +296,6 @@ public final class Contact {
     }
 
     /**
-     * <<<<<<< HEAD
      * Gets the list of addresses
      *
      * @return A list of addresses
