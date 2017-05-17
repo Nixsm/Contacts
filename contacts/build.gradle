@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        jcenter()
     }
 
     dependencies {
@@ -8,7 +7,6 @@ buildscript {
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.7"
 }
 
 apply plugin: 'com.android.library'
@@ -30,36 +28,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'aar'
-            name NAME
-            description DESCRIPTION
-            url SITE_URL
-
-            licenses {
-                license {
-                    name LICENCE_NAME
-                    url LICENCE_URL
-                }
-            }
-            developers {
-                developer {
-                    id DEVELOPER_ID
-                    name DEVELOPER_NAME
-                    email DEVELOPER_EMAIL
-                }
-            }
-            scm {
-                connection GIT_URL
-                developerConnection GIT_URL
-                url SITE_URL
-            }
         }
     }
 }
